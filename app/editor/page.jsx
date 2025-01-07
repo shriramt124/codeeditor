@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import axios from "axios";
+import { useRouter } from "next/navigation";
  
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
 const Editor = () => {
+    const router = useRouter(); // For routing
     const [code, setCode] = useState("");
     const [languageId, setLanguageId] = useState(54);  
     const [languages, setLanguages] = useState([]);
@@ -46,8 +48,14 @@ const Editor = () => {
     return (
         <div className="flex flex-col min-h-screen bg-gray-900 text-white">
             {/* Header */}
-            <header className="p-4 bg-gray-800 text-center text-xl font-bold shadow-md">
-                Online Code Runner
+            <header className="p-4 bg-gray-800 text-center text-xl font-bold shadow-md flex justify-between items-center">
+                <span>Online Code Runner</span>
+                <button
+                    onClick={() => router.push("/")} // Navigate to home page
+                    className="bg-blue-600 hover:bg-blue-700 text-sm font-semibold px-4 py-2 rounded-lg"
+                >
+                    Go to Home
+                </button>
             </header>
 
             {/* Main Content */}
