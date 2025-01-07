@@ -1,8 +1,0 @@
-[build]
-  # The command that Netlify will use to build the site
-  command = "npm run build"
-  
-  # The directory where the build output will be stored
-  publish = ".next"
-
- 
