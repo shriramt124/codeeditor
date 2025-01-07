@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import axios from "axios";
+import { fetchLanguages, runCode } from "../lib/actions";
 import { useRouter } from "next/navigation";
  
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
@@ -17,29 +17,25 @@ const Editor = () => {
     const [loading, setLoading] = useState(false);  
 
     useEffect(() => {
-        const fetchLanguages = async () => {
+        const loadLanguages = async () => {
             try {
-                const res = await axios.get("/api/code");
-                setLanguages(res.data);
+                const languagesData = await fetchLanguages();
+                setLanguages(languagesData);
             } catch (error) {
                 console.error("Error fetching languages:", error);
             }
         };
-        fetchLanguages();
+        loadLanguages();
     }, []);
-
+    
     const runCode = async () => {
         setLoading(true);  
         try {
-            const res = await axios.post("/api/code", {
-                source_code: code,
-                language_id: languageId,
-                stdin: stdin,
-            });
-            setOutput(res.data.stdout || res.data.stderr || "No output");
+            const res = await runCode(code, languageId, stdin);
+            setOutput(res.stdout || res.stderr || "No output");
         } catch (error) {
             console.error("Error running the code:", error);
-            setOutput("Error running the code: " + (error.response ? error.response.data : error.message));
+            setOutput("Error running the code: " + error.message);
         } finally {
             setLoading(false);  
         }
