@@ -1,17 +1,8 @@
-import MonacoWebpackPlugin  from 'monaco-editor-webpack-plugin';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    webpack: (config, { isServer }) => {
-        if (!isServer) {
-            config.plugins.push(
-                new MonacoWebpackPlugin({
-                    languages: ['javascript', 'cpp', 'java', 'python'], // Specify required languages
-                })
-            );
-        }
+export default {
+    webpack(config, options) {
+        config.plugins.push(new MonacoWebpackPlugin());
         return config;
     },
 };
-
-export default nextConfig;
