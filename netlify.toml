@@ -10,5 +10,5 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
   package = "@netlify/plugin-eslint"
-  config = { "skipOnFail": true }
+ 
 
