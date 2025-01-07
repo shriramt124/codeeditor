@@ -1,0 +1,85 @@
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.heading {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #61dafb;
+}
+
+.dropdown {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #2d2d2d;
+    color: #fff;
+}
+
+.editorContainer {
+    height: 300px;
+    margin-bottom: 1rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #2d2d2d;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #61dafb;
+    color: #1e1e1e;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.button:disabled {
+    background-color: #3a9dbf;
+    cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+    background-color: #52c4e5;
+}
+
+.outputContainer {
+    margin-top: 1rem;
+    background-color: #2d2d2d;
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.output {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #61dafb;
+}
