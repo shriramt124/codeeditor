@@ -35,10 +35,30 @@ export default {
 
     // Configure React and Next.js optimizations
     reactStrictMode: true, // Ensure React is running in strict mode for better performance
-    future: {
-        webpack5: true, // Enable Webpack 5 for better performance and optimizations
-    },
+    experimental: {
+        turbo: {
+            rules: {
+                '*.svg': {
+                    loaders: ['@svgr/webpack'],
+                    as: '*.js',
+                },
+            },
+            resolveAlias: {
+                underscore: 'lodash',
+                mocha: { browser: 'mocha/browser-entry.js' },
+            },
+            resolveExtensions: [
+                '.mdx',
+                '.tsx',
+                '.ts',
+                '.jsx',
+                '.js',
+                '.mjs',
+                '.json',
+            ],
 
-    // You may want to set up proper headers and caching strategies on Vercel, 
-    // this is usually done through the `vercel.json` configuration.
+            moduleIdStrategy: 'deterministic',
+
+        },
+    },
 };
