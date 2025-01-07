@@ -5,7 +5,7 @@ export default {
         // Ensure unique filenames for all assets to avoid conflicts
         config.output.filename = '[name].[contenthash].js'; // Add contenthash to avoid conflicts
 
-        // Optional: Set unique chunk names to avoid conflicts in chunk names
+        // Set unique chunk names to avoid conflicts in chunk names
         config.optimization.splitChunks = {
             ...config.optimization.splitChunks,
             cacheGroups: {
@@ -17,12 +17,28 @@ export default {
             },
         };
 
-        // Add MonacoWebpackPlugin to the plugins array
-        //config.plugins.push(new MonacoWebpackPlugin());
+        // Add MonacoWebpackPlugin to handle Monaco editor assets
+        // It's important to ensure the plugin only runs in the browser environment, not during SSR
+        if (typeof window !== 'undefined') {
+            config.plugins.push(new MonacoWebpackPlugin({
+                languages: ['javascript', 'css', 'html', 'typescript'],
+                features: ['!gotoSymbol']
+            }));
+        }
 
         return config;
     },
+
     eslint: {
         ignoreDuringBuilds: true, // Disable ESLint during the build process
     },
+
+    // Configure React and Next.js optimizations
+    reactStrictMode: true, // Ensure React is running in strict mode for better performance
+    future: {
+        webpack5: true, // Enable Webpack 5 for better performance and optimizations
+    },
+
+    // You may want to set up proper headers and caching strategies on Vercel, 
+    // this is usually done through the `vercel.json` configuration.
 };
