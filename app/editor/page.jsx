@@ -51,7 +51,7 @@ const Editor = () => {
             </header>
 
             {/* Main Content */}
-            <main className="flex flex-1 p-4 sm:p-8 gap-6">
+            <main className="flex flex-col md:flex-row p-4 sm:p-8 gap-6">
                 {/* Code Editor Section */}
                 <div className="flex-1 flex flex-col bg-gray-800 rounded-lg shadow-lg">
                     <div className="p-4 flex justify-between items-center border-b border-gray-700">
@@ -77,13 +77,13 @@ const Editor = () => {
                             value={code}
                             onChange={(newValue) => setCode(newValue)}
                             options={{ selectOnLineNumbers: true }}
-                            className="h-full"
+                            className="h-[300px] md:h-[500px] lg:h-[600px]"
                         />
                     </div>
                 </div>
 
                 {/* Output Section */}
-                <div className="flex-1 flex flex-col bg-gray-800 rounded-lg shadow-lg">
+                <div className="flex-1 flex flex-col bg-gray-800 rounded-lg shadow-lg sm:mt-0 mt-6">
                     <div className="p-4 border-b border-gray-700">
                         <h2 className="text-lg font-semibold">Input & Output</h2>
                     </div>
@@ -108,6 +108,7 @@ const Editor = () => {
                     </div>
                 </div>
             </main>
+
         </div>
     );
 };
