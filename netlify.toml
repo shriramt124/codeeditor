@@ -5,8 +5,10 @@
   # The directory where the build output will be stored
   publish = ".next"
 
-  # Set environment variables if necessary
-  environment = { NODE_ENV = "production" }
+ 
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-eslint"
+  config = { "skipOnFail": true }
+
