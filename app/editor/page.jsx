@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { fetchLanguages, runCode } from "../lib/actions";
+import { fetchLanguages, executeCode } from "../lib/actions";
 import { useRouter } from "next/navigation";
- 
+
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
 const Editor = () => {
@@ -31,7 +31,8 @@ const Editor = () => {
     const runCode = async () => {
         setLoading(true);  
         try {
-            const res = await runCode(code, languageId, stdin);
+            const res = await executeCode(code, languageId, stdin);
+            console.log(res)
             setOutput(res.stdout || res.stderr || "No output");
         } catch (error) {
             console.error("Error running the code:", error);
@@ -39,6 +40,11 @@ const Editor = () => {
         } finally {
             setLoading(false);  
         }
+    };
+
+    const saveCode = () => {
+        localStorage.setItem("savedCode", code);
+        alert("Code saved successfully!"); // Optional notification
     };
 
     return (
@@ -98,13 +104,21 @@ const Editor = () => {
                             value={stdin}
                             onChange={(e) => setStdin(e.target.value)}
                         ></textarea>
-                        <button
-                            onClick={runCode}
-                            disabled={loading}
-                            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-sm font-semibold px-4 py-2 rounded-lg"
-                        >
-                            {loading ? "Running..." : "Run Code"}
-                        </button>
+                        <div className="flex gap-2">
+                            <button
+                                onClick={runCode}
+                                disabled={loading}
+                                className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-sm font-semibold px-4 py-2 rounded-lg"
+                            >
+                                {loading ? "Running..." : "Run Code"}
+                            </button>
+                            <button
+                                onClick={saveCode}
+                                className="bg-green-600 hover:bg-green-700 text-sm font-semibold px-4 py-2 rounded-lg"
+                            >
+                                Save Code
+                            </button>
+                        </div>
                         <div className="flex-1 bg-gray-700 rounded-lg p-4 overflow-auto">
                             <h3 className="font-semibold mb-2">Output:</h3>
                             <pre className="text-sm whitespace-pre-wrap">{output}</pre>
@@ -112,9 +126,9 @@ const Editor = () => {
                     </div>
                 </div>
             </main>
-
         </div>
     );
 };
 
 export default Editor;
+ 

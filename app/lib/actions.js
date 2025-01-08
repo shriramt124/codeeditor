@@ -1,12 +1,14 @@
 export const fetchLanguages = async () => {
     const response = await fetch("/api/code");
+    const data = await response.json();
     if (!response.ok) {
         throw new Error("Failed to fetch languages");
     }
-    return response.json();
+    return data;
 };
 
-export const runCode = async (source_code, language_id, stdin) => {
+export const executeCode = async (source_code, language_id, stdin) => {
+    console.log(source_code, language_id, stdin);
     const response = await fetch("/api/code", {
         method: "POST",
         headers: {
@@ -18,8 +20,15 @@ export const runCode = async (source_code, language_id, stdin) => {
             stdin,
         }),
     });
+
+    // Parse the response once here
+    const data = await response.json();
+    console.log(data);
+
     if (!response.ok) {
         throw new Error("Failed to run code");
     }
-    return response.json();
+
+    return data; // Return the parsed data instead of calling response.json() again
 };
+
